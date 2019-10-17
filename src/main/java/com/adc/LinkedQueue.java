@@ -1,4 +1,4 @@
-package com.geek.algo;
+package com.adc;
 
 public class LinkedQueue<T> {
     private class Node<T> {

@@ -1,4 +1,4 @@
-package com.geek.algo;
+package com.adc;
 
 /**
  * 链表实现的栈

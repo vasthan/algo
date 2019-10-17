@@ -1,4 +1,4 @@
-package com.geek.algo;
+package com.adc;
 
 import java.util.Iterator;
 

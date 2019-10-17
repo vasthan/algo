@@ -1,4 +1,4 @@
-package com.geek.algo;
+package com.adc;
 
 /**
  * 定容栈简单实现

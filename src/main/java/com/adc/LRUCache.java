@@ -92,6 +92,4 @@ public class LRUCache<T> {
         return null;
     }
 
-    public T get() {}
-
 }

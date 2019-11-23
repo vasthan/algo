@@ -1,4 +1,4 @@
-package com.adc;
+package com.adc.queue;
 
 public class LinkedQueue<T> {
     private class Node<T> {

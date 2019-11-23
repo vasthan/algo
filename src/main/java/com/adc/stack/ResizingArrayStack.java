@@ -1,4 +1,4 @@
-package com.adc;
+package com.adc.stack;
 
 import java.util.Iterator;
 

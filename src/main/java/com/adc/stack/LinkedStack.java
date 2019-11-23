@@ -1,4 +1,4 @@
-package com.adc;
+package com.adc.stack;
 
 /**
  * 链表实现的栈

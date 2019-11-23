@@ -1,4 +1,4 @@
-package com.adc;
+package com.adc.stack;
 
 /**
  * 定容栈简单实现

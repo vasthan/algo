@@ -12,38 +12,42 @@ public class QuickSort {
         int[] arr = SortHelper.generateIntArray(10, 100);
         System.out.println(Arrays.toString(arr));
 
-        QuickSort.sort(arr, arr.length);
+        QuickSort.sort(arr);
         System.out.println(Arrays.toString(arr));
     }
 
+    public static void sort(int[] arr) {
+        if (arr == null || arr.length < 2) {
+            return;
+        }
 
-    public static void sort(int[] arr, int n) {
-        sortInternal(arr, 0, n -1);
+        doSort(arr, 0, arr.length - 1);
     }
 
-    private static void sortInternal(int[] arr, int l, int r) {
-        if (l < r) {
-            int pivot = partition(arr, l, r);
-            sortInternal(arr, l, pivot - 1);
-            sortInternal(arr, pivot + 1, r);
+    private static void doSort(int[] arr, int lo, int hi) {
+        if (lo < hi) {
+            int pivot = partition(arr, lo, hi);
+            doSort(arr, lo, pivot - 1);
+            doSort(arr, pivot + 1, hi);
         }
     }
 
-    private static int partition(int[] arr, int l, int r) {
-        int base = arr[l];
+    private static int partition(int[] arr, int lo, int hi) {
 
-        while (l < r) {
-            while (l < r && arr[r] >= base) {
-                r--;
+        int v = arr[lo];
+        while (lo < hi) {
+            while (arr[hi] >= v && lo < hi) {
+                hi--;
             }
-            arr[l] = arr[r];
-
-            while (l < r && arr[l] <= base) {
-                l++;
+            arr[lo] = arr[hi];
+            while (arr[lo] <= v && lo < hi) {
+                lo++;
             }
-            arr[r] = arr[l];
+            arr[hi] = arr[lo];
         }
-        arr[l] = base;
-        return l;
+        arr[lo] = v;
+        return lo;
     }
+
+
 }

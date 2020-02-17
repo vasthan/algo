@@ -1,4 +1,4 @@
-package com.datastruct;
+package com.datastruct.array;
 
 public class Main {
     public static void main(String[] args) {

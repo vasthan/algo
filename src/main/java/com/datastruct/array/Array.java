@@ -1,6 +1,4 @@
-package com.datastruct;
-
-import java.util.Objects;
+package com.datastruct.array;
 
 public class Array<E> {
     private E[] data;
@@ -57,6 +55,14 @@ public class Array<E> {
         if (index < 0 || index >= size)
             throw new IllegalArgumentException("Get failed. Index is illegal.");
         return data[index];
+    }
+
+    public E getLast() {
+        return get(size - 1);
+    }
+
+    public E getFirst() {
+        return get(0);
     }
 
     // 设置数组指定索引位置的值，并返回之前的值

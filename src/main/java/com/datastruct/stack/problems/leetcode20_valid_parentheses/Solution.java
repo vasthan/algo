@@ -1,11 +1,8 @@
-package com.datastruct.stack.problems;
+package com.datastruct.stack.problems.leetcode20_valid_parentheses;
 
 import com.datastruct.stack.ArrayStack;
 
-/**
- * 检测括号匹配
- */
-public class ValidParentheses {
+public class Solution {
 
     public boolean isValid(String s) {
         ArrayStack<Character> stack = new ArrayStack<>();

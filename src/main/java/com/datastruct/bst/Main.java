@@ -1,33 +1,29 @@
 package com.datastruct.bst;
 
-public class Main {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
+public class Main {
     public static void main(String[] args) {
+
         BST<Integer> bst = new BST<>();
 
-        /////////////////
-        //      5      //
-        //    /   \    //
-        //   3     7   //
-        //  / \   / \  //
-        // 2   4 6   8 //
-        /////////////////
-
-        int[] nums = {5, 3, 2, 7, 4, 6, 8};
-        for (int num : nums) {
-            bst.add(num);
+        Random random = new Random();
+        for (int i = 0; i < 20; i++) {
+            bst.add(random.nextInt(100));
         }
 
-        // bst.preOrder();
-        // System.out.println();
-        // System.out.println(bst.preOrderNR());
-
-        // bst.inOrder();
-        // System.out.println();
-        // System.out.println(bst.inOrderNR());
-
-        bst.postOrder();
-        System.out.println();
-        System.out.println(bst.postOrderNR());
+        List<Integer> list = new ArrayList<>();
+        while (!bst.isEmpty()) {
+            list.add(bst.removeMin());
+        }
+        System.out.println(list);
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i - 1) > list.get(i)) {
+                throw new RuntimeException("Error");
+            }
+        }
+        System.out.println("Test removeMin() success!");
     }
 }

@@ -1,8 +1,6 @@
 package com.datastruct.bst;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * 二分搜索树BinarySearchTree
@@ -182,6 +180,136 @@ public class BST<E extends Comparable<E>> {
             res.add(tmp.pop());
         }
         return res;
+    }
+
+    // 层序遍历，非递归
+    public void levelOrder() {
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            Node cur = queue.remove();
+            System.out.println(cur.e);
+            if (cur.left != null) {
+                queue.add(cur.left);
+            }
+            if (cur.right != null) {
+                queue.add(cur.right);
+            }
+        }
+    }
+
+    public E getMin() {
+        if (isEmpty()) {
+            throw new IllegalArgumentException("BST is empty.");
+        }
+        Node<E> cur = root;
+        while (cur.left != null) {
+            cur = cur.left;
+        }
+        return cur.e;
+    }
+
+    private Node minimum(Node node) {
+        if (node.left == null) {
+            return node;
+        } else {
+            return minimum(node.left);
+        }
+    }
+
+    public E getMax() {
+        if (isEmpty()) {
+            throw new IllegalArgumentException("BST is empty");
+        }
+        Node<E> cur = root;
+        while (cur.right != null) {
+            cur = cur.right;
+        }
+        return cur.e;
+    }
+
+    public E removeMin() {
+        E min = getMin();
+        root = removeMin(root);
+        return min;
+    }
+
+    // 删除以node为根的二分搜索树的最小节点
+    // 返回删除节点后新的二分搜索树的根
+    private Node removeMin(Node node) {
+        if (node.left == null) {
+            Node rightNode = node.right;
+            node.right = null;
+            size--;
+            return rightNode;
+        }
+
+        node.left = removeMin(node.left);
+        return node;
+    }
+
+    public E removeMax() {
+        E max = getMax();
+        root = removeMax(root);
+        return max;
+    }
+
+    private Node removeMax(Node node) {
+        if (node.right == null) {
+            Node leftNode = node.left;
+            node.left = null;
+            size--;
+            return leftNode;
+        }
+        node.right = removeMax(node.right);
+        return node;
+    }
+
+    public void remove(E e) {
+        if (isEmpty()) {
+            throw new IllegalArgumentException("BST is empty.");
+        }
+        root = remove(root, e);
+    }
+
+    // 删除以node为根的二分搜索树中值为e的节点，递归算法
+    // 返回删除节点后新的二分搜索树的根
+    private Node remove(Node<E> node, E e) {
+        if (node == null) {
+            return null;
+        }
+        if (e.compareTo(node.e) < 0) {
+            node.left = remove(node.left, e);
+            return node;
+        } else if (e.compareTo(node.e) > 0) {
+            node.right = remove(node.right, e);
+            return node;
+        } else {
+            // 待删除节点左子树为空的情况
+            if (node.left == null) {
+                Node rightNode = node.right;
+                node.right = null;
+                size--;
+                return rightNode;
+            }
+            // 待删除节点右子树为空的情况
+            if (node.right == null) {
+                Node leftNode = node.left;
+                node.left = null;
+                size--;
+                return leftNode;
+            }
+
+            // 待删除节点的左右子树均不为空的情况
+            // 找到比待删除节点大的最小节点，即待删除节点右子树的最小节点（也可以是比待删除节点小的最大节点）
+            // 用这个节点顶替待删除节点的位置
+            Node successor = minimum(node.right);
+            successor.right = removeMin(node.right);
+            successor.left = node.left;
+            node.left = node.right = null;
+            return successor;
+        }
     }
 
     @Override

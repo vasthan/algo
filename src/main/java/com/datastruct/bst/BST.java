@@ -1,5 +1,9 @@
 package com.datastruct.bst;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
 /**
  * 二分搜索树BinarySearchTree
  */
@@ -85,6 +89,27 @@ public class BST<E extends Comparable<E>> {
         preOrder(node.right);
     }
 
+    // 前序遍历的非递归实现 NR表示Non-Recursive
+    public List<E> preOrderNR() {
+        List<E> res = new ArrayList<>(size);
+        if (root == null) {
+            return res;
+        }
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            Node<E> cur = stack.pop();
+            res.add(cur.e);
+            if (cur.right != null) {
+                stack.push(cur.right);
+            }
+            if (cur.left != null) {
+                stack.push(cur.left);
+            }
+        }
+        return res;
+    }
+
     public void inOrder() {
         inOrder(root);
     }
@@ -99,6 +124,23 @@ public class BST<E extends Comparable<E>> {
         inOrder(node.right);
     }
 
+    // 中序遍历非递归实现
+    public List<E> inOrderNR() {
+        List<E> res = new ArrayList<>(size);
+        Stack<Node> stack = new Stack<>();
+        Node<E> cur = root;
+        while (cur != null || !stack.isEmpty()) {
+            while (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            }
+            cur = stack.pop();
+            res.add(cur.e);
+            cur = cur.right;
+        }
+        return res;
+    }
+
     public void postOrder() {
         postOrder(root);
     }
@@ -111,6 +153,35 @@ public class BST<E extends Comparable<E>> {
         postOrder(node.left);
         postOrder(node.right);
         System.out.println(node.e);
+    }
+
+    // 后序遍历非递归实现
+    public List<E> postOrderNR() {
+        List<E> res = new ArrayList<>(size);
+        if (root == null) {
+            return res;
+        }
+
+        Stack<Node> stack = new Stack<>();
+        Stack<E> tmp = new Stack<>();
+        stack.push(root);
+
+        // 反向前序遍历（中 -> 右 -> 左），push到临时栈tmp中，再pop出栈就变成了（左 -> 右 -> 中）
+        while (!stack.isEmpty()) {
+            Node<E> cur = stack.pop();
+            tmp.push(cur.e);
+            if (cur.left != null) {
+                stack.push(cur.left);
+            }
+            if (cur.right != null) {
+                stack.push(cur.right);
+            }
+        }
+
+        while (!tmp.isEmpty()) {
+            res.add(tmp.pop());
+        }
+        return res;
     }
 
     @Override

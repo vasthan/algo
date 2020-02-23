@@ -18,10 +18,16 @@ public class Main {
             bst.add(num);
         }
 
-        bst.preOrder();
-        System.out.println();
-        bst.inOrder();
-        System.out.println();
+        // bst.preOrder();
+        // System.out.println();
+        // System.out.println(bst.preOrderNR());
+
+        // bst.inOrder();
+        // System.out.println();
+        // System.out.println(bst.inOrderNR());
+
         bst.postOrder();
+        System.out.println();
+        System.out.println(bst.postOrderNR());
     }
 }

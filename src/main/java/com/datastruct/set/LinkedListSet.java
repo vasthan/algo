@@ -2,6 +2,9 @@ package com.datastruct.set;
 
 import com.datastruct.linkedlist.LinkedList;
 
+/**
+ * 基于链表实现的Set
+ */
 public class LinkedListSet<E> implements Set<E> {
 
     private LinkedList<E> data;

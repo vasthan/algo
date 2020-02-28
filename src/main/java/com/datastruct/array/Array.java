@@ -133,6 +133,12 @@ public class Array<E> {
         data = newData;
     }
 
+    public void swap(int i, int j) {
+        E tmp = data[i];
+        data[i] = data[j];
+        data[j] = tmp;
+    }
+
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();

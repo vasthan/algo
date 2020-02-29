@@ -14,6 +14,14 @@ public class MaxHeap<E extends Comparable<E>> {
         this.data = new Array<>(capacity);
     }
 
+    // heapify堆化
+    public MaxHeap(E[] arr) {
+        this.data = new Array<>(arr);
+        for (int i = parent(data.getSize() - 1); i >= 0; i--) {
+            siftDown(i);
+        }
+    }
+
     public int size() {
         return data.getSize();
     }
@@ -55,7 +63,7 @@ public class MaxHeap<E extends Comparable<E>> {
         return e;
     }
 
-    private E getMax() {
+    public E getMax() {
         return data.getFirst();
     }
 
@@ -81,5 +89,15 @@ public class MaxHeap<E extends Comparable<E>> {
             data.swap(k, j);
             k = j;
         }
+    }
+    
+    public E replace(E e) {
+        if (data.isEmpty()) {
+            throw new IllegalArgumentException("Heap is empty");
+        }
+        E res = getMax();
+        data.set(0, e);
+        siftDown(0);
+        return res;
     }
 }

@@ -7,14 +7,14 @@ public final class SortHelper {
     private SortHelper() {}
 
     public static double test(Consumer<Comparable[]> sortAlgo, Comparable[] arr) {
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
         sortAlgo.accept(arr);
-        long end = System.currentTimeMillis();
+        long end = System.nanoTime();
 
         if (!isSorted(arr)) {
             throw new RuntimeException("alfo failed! arr is not sorted");
         }
-        return (end - start) / 1000.0;
+        return (end - start) / 1000000000.0;
     }
 
     public static boolean isSorted(Comparable[] arr) {

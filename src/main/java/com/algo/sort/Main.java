@@ -5,13 +5,18 @@ import com.util.ArrayUtils;
 public class Main {
 
     public static void main(String[] args) {
-        Integer[] arr = ArrayUtils.generateRandomIntArr(100000, 0, Integer.MAX_VALUE);
+        // Integer[] arr = ArrayUtils.generateRandomIntArr(50000, 0, Integer.MAX_VALUE);
+        Integer[] arr = ArrayUtils.generateNearlyOrderedIntArr(10000000, 100);
         Integer[] arr2 = ArrayUtils.copy(arr);
+        Integer[] arr3 = ArrayUtils.copy(arr);
 
-        double time1 = SortHelper.test(SelectionSort::sort, arr);
-        System.out.println("Selection sort: " + time1 + "s");
+        double time1 = SortHelper.test(InsertionSortOptimize::sort, arr);
+        System.out.println("InsertionSort optimize: " + time1 + "s");
 
-        double time2 = SortHelper.test(InsertionSort::sort, arr2);
-        System.out.println("Insertion sort: " + time2 + "s");
+        double time2 = SortHelper.test(MergeSort::sort, arr2);
+        System.out.println("MergeSort: " + time2 + "s");
+
+        double time3 = SortHelper.test(MergeSort::sortBottomUp, arr3);
+        System.out.println("MergeSortBottomUp: " + time3 + "s");
     }
 }

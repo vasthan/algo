@@ -22,6 +22,26 @@ public final class ArrayUtils {
         return arr;
     }
 
+    /**
+     * 生成一个近乎有序的数组
+     * @param size          数组大小
+     * @param swapTimes     交换次数
+     */
+    public static Integer[] generateNearlyOrderedIntArr(int size, int swapTimes) {
+        Integer[] arr = new Integer[size];
+        for (int i = 0; i < size; i++) {
+            arr[i] = i;
+        }
+
+        Random random = new Random();
+        for (int i = 0; i < swapTimes; i++) {
+            int posx = random.nextInt(size);
+            int posy = random.nextInt(size);
+            swap(arr, posx, posy);
+        }
+        return arr;
+    }
+
     public static <E> E[] copy(E[] arr) {
         return Arrays.copyOf(arr, arr.length);
     }

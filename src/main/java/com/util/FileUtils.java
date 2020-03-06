@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileOperation {
+public class FileUtils {
 
     public static List<String> readFileToWords(String fileName) {
         BufferedReader br = null;

@@ -1,3 +1,3 @@
 package com.datastruct.graph;
 
-// 图
+// 图论

@@ -9,27 +9,27 @@ import java.util.TreeSet;
  * 图数据结构
  */
 public class Graph {
-    private int v;
-    private int e;
+    private int V;
+    private int E;
     private TreeSet<Integer>[] adj;
 
     public Graph(String filename) {
         try (Scanner scanner = new Scanner(new File(filename))) {
-            v = scanner.nextInt();
-            if (v < 0) {
+            V = scanner.nextInt();
+            if (V < 0) {
                 throw new IllegalArgumentException("顶点数不能为负数");
             }
-            adj = new TreeSet[v];
-            for (int i = 0; i < v; i++) {
+            adj = new TreeSet[V];
+            for (int i = 0; i < V; i++) {
                 adj[i] = new TreeSet<>();
             }
 
-            e = scanner.nextInt();
-            if (e < 0) {
+            E = scanner.nextInt();
+            if (E < 0) {
                 throw new IllegalArgumentException("边数不能为负数");
             }
 
-            for (int i = 0; i < e; i++) {
+            for (int i = 0; i < E; i++) {
                 int a = scanner.nextInt();
                 validateVertex(a);
                 int b = scanner.nextInt();
@@ -51,39 +51,39 @@ public class Graph {
     }
 
     public int getV() {
-        return v;
+        return V;
     }
 
     public int getE() {
-        return e;
+        return E;
     }
 
-    public boolean hasEdge(int a, int b) {
-        validateVertex(a);
-        validateVertex(b);
-        return adj[a].contains(b);
+    public boolean hasEdge(int v, int w) {
+        validateVertex(v);
+        validateVertex(w);
+        return adj[v].contains(w);
     }
 
-    public Set<Integer> adj(int k) {
-        validateVertex(k);
-        return adj[k];
+    public Set<Integer> adj(int v) {
+        validateVertex(v);
+        return adj[v];
     }
 
-    public int degree(int k) {
-        return adj(k).size();
+    public int degree(int v) {
+        return adj(v).size();
     }
 
-    private void validateVertex(int k) {
-        if (k < 0 || k >= v) {
-            throw new IllegalArgumentException("vertex " + k + " is invalid.");
+    private void validateVertex(int v) {
+        if (v < 0 || v >= V) {
+            throw new IllegalArgumentException("vertex " + v + " is invalid.");
         }
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format("V=%d, E=%d\n", v, e));
-        for (int i = 0; i < v; i++) {
+        sb.append(String.format("V=%d, E=%d\n", V, E));
+        for (int i = 0; i < V; i++) {
             sb.append(i + ": ").append(adj[i]).append('\n');
         }
         return sb.toString();

@@ -5,6 +5,9 @@ import com.datastruct.graph.Graph;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 图的深度优先遍历
+ */
 public class GraphDFS {
 
     private Graph g;

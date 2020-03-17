@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-// 图的单源路径问题
+/**
+ * 深度优先遍历求解单源路径问题
+ */
 public class SingleSourcePath {
 
     private Graph G;

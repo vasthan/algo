@@ -1,30 +1,32 @@
 package com.algo.search;
 
-import com.util.ArrayUtils;
-
-// 二分查找法
+// 二分搜索
 public class BinarySearch {
 
+    // 查找某个值
     public static int search(Comparable[] arr, Comparable target) {
 
-        int i = 0, j = arr.length - 1;
-        while (i <= j) {
-            int mid = i + (j - i) / 2;
+        int l = 0, r = arr.length - 1;
+        while (l <= r) {
+            int mid = l + (r - l) / 2;
             if (target.compareTo(arr[mid]) == 0) {
                 return mid;
             } else if (target.compareTo(arr[mid]) < 0) {
-                j = mid - 1;
+                r = mid - 1;
             } else {
-                i = mid + 1;
+                l = mid + 1;
             }
         }
         return -1;
     }
 
-    public static void main(String[] args) {
+    // TODO 查找大于等于target的最小值
+    public static int floor(Comparable[] arr, Comparable target) {
+        return -1;
+    }
 
-        Integer[] arr = ArrayUtils.generateRandomIntArr(100, 0, 101);
-        int index = BinarySearch.search(arr, 50);
-        System.out.println("index of 50 is: " + index);
+    // TODO 查找小于等于target的最大值
+    public static int ceil(Comparable[] arr, Comparable target) {
+        return -1;
     }
 }

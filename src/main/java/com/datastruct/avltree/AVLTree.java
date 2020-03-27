@@ -3,7 +3,6 @@ package com.datastruct.avltree;
 import com.datastruct.map.Map;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -210,33 +209,59 @@ public class AVLTree<K extends Comparable, V> implements Map<K, V> {
         if (node == null) {
             return null;
         }
+
+        Node retNode;
         if (key.compareTo(node.key) < 0) {
             node.left = remove(node.left, key);
-            return node;
+            retNode = node;
         } else if (key.compareTo(node.key) > 0) {
             node.right = remove(node.right, key);
-            return node;
+            retNode = node;
         } else {
             if (node.left == null) {
                 Node rightNode = node.right;
                 node.right = null;
                 size--;
-                return rightNode;
-            }
-
-            if (node.right == null) {
+                retNode = rightNode;
+            } else if (node.right == null) {
                 Node leftNode = node.left;
                 node.left = null;
                 size--;
-                return leftNode;
+                retNode = leftNode;
+            } else {
+                Node successor = getMin(node.right);
+                successor.right = remove(node.right, successor.key);
+                successor.left = node.left;
+                node.left = node.right = null;
+                retNode = successor;
             }
-
-            Node successor = getMin(node);
-            successor.right = removeMin(node.right);
-            successor.left = node.left;
-            node.left = node.right = null;
-            return successor;
         }
+
+        if (retNode == null) {
+            return null;
+        }
+        // 维护高度和平衡
+        retNode.height = Math.max(getHeight(retNode.left), getHeight(retNode.right)) + 1;
+        int balanceFactor = getBalanceFactor(retNode);
+        // LL
+        if (balanceFactor > 1 && getBalanceFactor(retNode.left) >= 0) {
+            return rightRotate(retNode);
+        }
+        // RR
+        if (balanceFactor < -1 && getBalanceFactor(retNode.right) <= 0) {
+            return leftRotate(retNode);
+        }
+        // LR
+        if (balanceFactor > 1 && getBalanceFactor(retNode.left) < 0) {
+            retNode.left = leftRotate(retNode.left);
+            return rightRotate(retNode);
+        }
+        // RL
+        if (balanceFactor < -1 && getBalanceFactor(retNode.right) > 0) {
+            retNode.right = rightRotate(retNode.right);
+            return leftRotate(retNode);
+        }
+        return retNode;
     }
 
     // 查找以node为根的二分搜索树中的最小节点
@@ -246,18 +271,6 @@ public class AVLTree<K extends Comparable, V> implements Map<K, V> {
         } else {
             return getMin(node.left);
         }
-    }
-
-    // 删除以node为根的二分搜索树的最小节点，并返回新的二分搜索树的根
-    private Node removeMin(Node node) {
-        if (node.left == null) {
-            Node rightNode = node.right;
-            node.right = null;
-            size--;
-            return rightNode;
-        }
-        node.left = removeMin(node.left);
-        return node;
     }
 
     // 在以node为根的二分搜索树中查找key的节点

@@ -14,12 +14,11 @@ public class MergeSort {
     // 自底向上归并
     public static void sortBottomUp(Comparable[] arr) {
         int n = arr.length;
-        for (int size = 1; size <= n; size += size) {
-            for (int i = 0; i + size < n; i += size + size) {
-                if (arr[i + size - 1].compareTo(arr[i + size]) > 0) {
-                    // 对arr[i, i + size - 1] 和 arr[i + size, i + 2*size - 1] 进行归并
-                    merge(arr, i, i + size - 1, Math.min(i + 2 * size - 1, n - 1));
-                }
+        // 每次归并的数组大小：1、2、4、8，和自顶向下归并的递归过程相反
+        for (int size = 1; size < n; size += size) {
+            // 对arr[i, i + size - 1] 和 arr[i + size, i + 2*size - 1] 进行归并
+            for (int i = 0; i + size < n; i += 2 * size) {
+                merge(arr, i, i + size - 1, Math.min(n - 1, i + 2 * size - 1));
             }
         }
     }

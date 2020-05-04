@@ -1,5 +1,8 @@
 package com.datastruct.queue;
 
+/**
+ * 数组实现的循环队列：优化普通数组队列出队O(n)时间复杂度
+ */
 public class LoopQueue<E> implements Queue<E> {
 
     private E[] data;
@@ -8,9 +11,7 @@ public class LoopQueue<E> implements Queue<E> {
 
     public LoopQueue(int capacity) {
         this.data = (E[]) new Object[capacity + 1];
-        this.size = 0;
-        this.head = 0;
-        this.tail = 0;
+        this.size = this.head = this.tail = 0;
     }
 
     public LoopQueue() {
@@ -30,16 +31,16 @@ public class LoopQueue<E> implements Queue<E> {
     @Override
     public E dequeue() {
         if (isEmpty()) {
-            throw new IllegalArgumentException("Dequeue Failed. Queue is empty.");
+            throw new IllegalArgumentException("Queue is empty!");
         }
-        E res = data[head];
+        E e = data[head];
         data[head] = null;
         head = (head + 1) % data.length;
         size--;
-        if (size == getCapacity() / 4 && getCapacity() / 2 != 0) {
+        if (size <= getCapacity() / 4 && getCapacity() / 2 != 0) {
             resize(getCapacity() / 2);
         }
-        return res;
+        return e;
     }
 
     private void resize(int newCapacity) {
@@ -47,17 +48,21 @@ public class LoopQueue<E> implements Queue<E> {
         for (int i = 0; i < size; i++) {
             newData[i] = data[(i + head) % data.length];
         }
-        head = 0;
-        tail = size;
-        data = newData;
+        this.data = newData;
+        this.head = 0;
+        this.tail = size;
     }
 
     @Override
     public E getHead() {
         if (isEmpty()) {
-            throw new IllegalArgumentException("Queue is empty.");
+            throw new IllegalArgumentException("Queue is empty!");
         }
         return data[head];
+    }
+
+    public int getCapacity() {
+        return data.length - 1;
     }
 
     @Override
@@ -70,10 +75,6 @@ public class LoopQueue<E> implements Queue<E> {
         return head == tail;
     }
 
-    public int getCapacity() {
-        return data.length - 1;
-    }
-
     public boolean isFull() {
         return (tail + 1) % data.length == head;
     }
@@ -81,15 +82,14 @@ public class LoopQueue<E> implements Queue<E> {
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
-        res.append(String.format("Queue: size = %s, capacity = %d\n", getSize(), getCapacity()));
-        res.append("Queue: head [");
+        res.append("head: [");
         for (int i = head; i != tail; i = (i + 1) % data.length) {
             res.append(data[i]);
             if ((i + 1) % data.length != tail) {
-                res.append(", ");
+                res.append(",");
             }
         }
-        res.append("] tail");
+        res.append("] tail;").append(" capacity: ").append(getCapacity());
         return res.toString();
     }
 
@@ -97,11 +97,10 @@ public class LoopQueue<E> implements Queue<E> {
         Queue<Integer> queue = new LoopQueue<>();
         for (int i = 0; i < 10; i++) {
             queue.enqueue(i);
-            System.out.println(queue);
             if (i % 3 == 2) {
                 queue.dequeue();
-                System.out.println(queue);
             }
+            System.out.println(queue);
         }
     }
 }

@@ -11,10 +11,10 @@ public class QuickSortThreeWays {
 
     public static void sort(Comparable[] arr) {
 
-        sort(arr, 0, arr.length -1);
+        quickSort(arr, 0, arr.length -1);
     }
 
-    private static void sort(Comparable[] arr, int l, int r) {
+    private static void quickSort(Comparable[] arr, int l, int r) {
         if (l >= r) {
             return;
         }
@@ -40,7 +40,7 @@ public class QuickSortThreeWays {
             }
         }
         ArrayUtils.swap(arr, l, lt);
-        sort(arr, l, lt - 1);
-        sort(arr, gt, r);
+        quickSort(arr, l, lt - 1);
+        quickSort(arr, gt, r);
     }
 }

@@ -17,7 +17,22 @@ public class InsertionSort {
 
     public static void main(String[] args) {
         Integer[] arr = ArrayUtils.generateRandomIntArr(10000, 0, 10000);
-        InsertionSort.sort(arr);
-        SortHelper.isSorted(arr);
+        InsertionSort.sort2(arr);
+        boolean sorted = SortHelper.isSorted(arr);
+        System.out.println(sorted);
+    }
+
+
+    public static void sort2(Integer[] arr) {
+        if (arr == null || arr.length == 1) {
+            return;
+        }
+        for (int i = 1; i < arr.length; i++) {
+            for (int j = i; j > 0; j--) {
+                if (arr[j] < arr[j - 1]) {
+                    ArrayUtils.swap(arr, j, j - 1);
+                }
+            }
+        }
     }
 }

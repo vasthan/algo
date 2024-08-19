@@ -33,7 +33,7 @@ public class QuickSortDoubleWays2 {
 
         // [l+1, i)区间的元素小于等于v，(j, r]区间的元素大于等于v
         int i = l + 1, j = r;
-        while (true) {
+        while (i <= j) {
             // i指针不断右移，直到找到一个大于等于v的元素
             while (i <= j && arr[i].compareTo(v) < 0) {
                 i++;
@@ -42,14 +42,11 @@ public class QuickSortDoubleWays2 {
             while (i <= j && arr[j].compareTo(v) > 0) {
                 j--;
             }
-            if (i > j) {
-                break;
-            }
-            if (i < j) {
+            if (i <= j) {
                 ArrayUtils.swap(arr, i, j);
+                i++;
+                j--;
             }
-            i++;
-            j--;
         }
         ArrayUtils.swap(arr, l, j);
         return j;

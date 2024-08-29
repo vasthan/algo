@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class BST<E extends Comparable<E>> {
 
-    private class Node<E> {
+    private class Node {
         E e;
         Node left, right;
 
@@ -41,10 +41,10 @@ public class BST<E extends Comparable<E>> {
 
     // 向以node为根的二分搜索树中添加元素e，递归算法
     // 返回以插入新节点后二分搜索树的根
-    private Node add(Node<E> node, E e) {
+    private Node add(Node node, E e) {
         if (node == null) {
             size++;
-            return new Node<>(e);
+            return new Node(e);
         }
 
         if (e.compareTo(node.e) < 0) {
@@ -59,7 +59,7 @@ public class BST<E extends Comparable<E>> {
         return contains(root, e);
     }
 
-    private boolean contains(Node<E> node, E e) {
+    private boolean contains(Node node, E e) {
         if (node == null) {
             return false;
         }
@@ -96,7 +96,7 @@ public class BST<E extends Comparable<E>> {
         Stack<Node> stack = new Stack<>();
         stack.push(root);
         while (!stack.isEmpty()) {
-            Node<E> cur = stack.pop();
+            Node cur = stack.pop();
             res.add(cur.e);
             if (cur.right != null) {
                 stack.push(cur.right);
@@ -126,7 +126,7 @@ public class BST<E extends Comparable<E>> {
     public List<E> inOrderNR() {
         List<E> res = new ArrayList<>(size);
         Stack<Node> stack = new Stack<>();
-        Node<E> cur = root;
+        Node cur = root;
         while (cur != null || !stack.isEmpty()) {
             while (cur != null) {
                 stack.push(cur);
@@ -166,7 +166,7 @@ public class BST<E extends Comparable<E>> {
 
         // 反向前序遍历（中 -> 右 -> 左），push到临时栈tmp中，再pop出栈就变成了（左 -> 右 -> 中）
         while (!stack.isEmpty()) {
-            Node<E> cur = stack.pop();
+            Node cur = stack.pop();
             tmp.push(cur.e);
             if (cur.left != null) {
                 stack.push(cur.left);
@@ -203,7 +203,7 @@ public class BST<E extends Comparable<E>> {
         if (isEmpty()) {
             throw new IllegalArgumentException("BST is empty.");
         }
-        Node<E> cur = root;
+        Node cur = root;
         while (cur.left != null) {
             cur = cur.left;
         }
@@ -222,7 +222,7 @@ public class BST<E extends Comparable<E>> {
         if (isEmpty()) {
             throw new IllegalArgumentException("BST is empty");
         }
-        Node<E> cur = root;
+        Node cur = root;
         while (cur.right != null) {
             cur = cur.right;
         }
@@ -275,7 +275,7 @@ public class BST<E extends Comparable<E>> {
 
     // 删除以node为根的二分搜索树中值为e的节点，递归算法
     // 返回删除节点后新的二分搜索树的根
-    private Node remove(Node<E> node, E e) {
+    private Node remove(Node node, E e) {
         if (node == null) {
             return null;
         }

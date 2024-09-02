@@ -2,9 +2,6 @@ package com.leetcode;
 
 import java.util.Arrays;
 
-/**
- * @author 拓破
- */
 class Solution27 {
     // 给定数组nums，移除其中等于val的元素，返回剩余元素的数量（假设为k），要求这个k个元素放在nums数组的头部
     public int removeElement(int[] nums, int val) {

@@ -1,8 +1,5 @@
 package com.leetcode;
 
-/**
- * @author 拓破
- */
 class Solution283 {
     // 把nums数组中的所有0移动到数组末尾
     // 1. 保持非零元素的相对顺序
